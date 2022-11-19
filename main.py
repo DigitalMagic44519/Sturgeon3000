@@ -163,7 +163,7 @@ def tv_wind():
 
     #drive up and do tv. this should give us our first 20 points.
     set_straight_speed(500)
-    robot.straight(380)
+    robot.straight(345)
     set_straight_speed(100)
     robot.straight(90)
 
@@ -171,9 +171,10 @@ def tv_wind():
     set_straight_speed(500)
     robot.straight(-140)
     robot.turn(-45)
-    robot.straight(430)
+    robot.straight(420) # drive east
     robot.turn(90)
-    robot.straight(250)
+    set_straight_speed(300)
+    robot.straight(200)
 
     #push on windmill 3 moretimes extra in case one stays put
     robot.straight(-40)
@@ -182,6 +183,14 @@ def tv_wind():
     robot.straight(50)
     robot.straight(-40)
     robot.straight(50)
+
+    #Pick up rechargable
+    robot.straight(-230) #back up to capture rechargeable
+    #robot.turn(25)
+    #robot.straight(-40)
+    robot.turn(-85)  # turn angle to go home
+    set_straight_speed(500) # pedal to the metal
+    robot.straight(-600)
 
 def oil():
     # oil rig mission by Esther and Brayden
@@ -215,8 +224,16 @@ def hopper():
     robot.straight(280)
 
     #follow line to hopper
-    followline(480,75,"left","left")
+    follow_line(520,75,"left","left")
     robot.stop()
+
+    #pull out the drawer
+    robot.straight(-300)
+    set_straight_speed(500)
+    robot.turn(20)
+    #robot.drive(100,50)
+    robot.straight(-500)
+    
     
 
 
@@ -231,8 +248,8 @@ ev3.speaker.beep(900)
 ev3.speaker.beep(100)
 ev3.speaker.beep(900)
 
-hopper()
-#am.run_time(-2000,600)
+tv_wind()
+#follow_line(480,75,"left","left")
 
 while True:
     # Draw screen based on what run we are on
