@@ -55,7 +55,7 @@ turn_acceleration = 1600
 
 # menu variables by Ian
 run_number = 0
-last_run_number = 3 
+last_run_number = 5 
 
 # ---------------------------------------------------------------
 # These are our reusable functions from 2021
@@ -95,7 +95,7 @@ def dispense():
     am.run_time(-2000,700)# speed and time, negative is dispense
     am.run_time(2000,700)# speed and time, positive is reset
 
-def follow_line2( distance, speed = 80, right_or_left_sensor = "right", side_of_line = "left", Kp = 0.8, Ki = 0.0008, Kd =.001):
+def follow_line( distance, speed = 80, right_or_left_sensor = "right", side_of_line = "left", Kp = 0.8, Ki = 0.0008, Kd =.001):
     '''
     Version 2 of the Digital Magic function to follow a line.  This version by Koen on 12-18-2020 to make it a PID line follower
     and use 2 sensors!
@@ -183,7 +183,44 @@ def tv_wind():
     robot.straight(-40)
     robot.straight(50)
 
-#Essie Dino() Oil() Power() Storage() 
+def oil():
+    # oil rig mission by Esther and Brayden
+    set_straight_speed(300) 
+    robot.straight(-750)
+    robot.turn(53)
+    robot.straight(250)
+
+    # Pump the well 3 times
+    robot.straight(-100)
+    robot.straight(120)
+    robot.straight(-100)
+    robot.straight(120)
+
+
+    # Harvest energy from solar farm
+    robot.straight(-600)
+
+    #Koen took over, then Lily as she needed to rebuild the reeper
+    am.run_time(-2000,600)
+    robot.straight(250)  # Coach winmill 250? 
+    robot.turn(-67)
+    robot.straight(1000)
+ 
+def hopper():
+    #hopper fill run by Lily Hill
+    #set the speed
+    set_straight_speed(109)
+
+    #drive to line 
+    robot.straight(280)
+
+    #follow line to hopper
+    followline(480,75,"left","left")
+    robot.stop()
+    
+
+
+
 
 # ---------------------------------------------------------------
 # This is the menu system (changed from the example code by Ian)
@@ -194,6 +231,8 @@ ev3.speaker.beep(900)
 ev3.speaker.beep(100)
 ev3.speaker.beep(900)
 
+hopper()
+#am.run_time(-2000,600)
 
 while True:
     # Draw screen based on what run we are on
@@ -204,10 +243,10 @@ while True:
         make_screen(ev3,"Dino"," -  -  -  -  -  -  + ","", ""," "," ")
 
     elif run_number == 2:
-        make_screen(ev3,"Beep"," -  -  -  -  -  -  + ","", ""," "," ")
+        make_screen(ev3,"oil rig"," -  -  -  -  -  -  + ","", ""," "," ")
 
     elif run_number == 3:
-        make_screen(ev3,"Beep"," -  -  -  -  -  -  + ","", ""," "," ")
+        make_screen(ev3,"hopper run"," -  -  -  -  -  -  + ","", ""," "," ")
 
     elif run_number == 4:
         make_screen(ev3,"Beep"," -  -  -  -  -  -  + ","", ""," "," ")
@@ -248,13 +287,13 @@ while True:
         if run_number == 0:
             tv_wind()
         elif run_number == 1:
-            ev3.speaker.beep(200)
+            dino()
 
         elif run_number == 2:
-            ev3.speaker.beep(200)
+            oil()
 
         elif run_number == 3:
-            ev3.speaker.beep(200)
+            hopper()
 
         elif run_number == 4:
             ev3.speaker.beep(200)
