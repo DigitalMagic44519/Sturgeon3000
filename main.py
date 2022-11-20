@@ -1,18 +1,21 @@
 #!/usr/bin/env pybricks-micropython
 
-# ---------------------------------------------------------------
-# 2022 Sturgeon 3000
+# # -------------------------------------------------------------------------------------
+
+# 2022 Super Powered Sturgeon 3000
 #
-# We started with a copy of our 2021 code
+# We started with a copy of our 2021 code!  Removed our Cargo Connect Missions 
+#   and added our Super Powered missions
 #
-# Change log now bing in Git Hub
+# Change log now in Git Hub!  
+#   https://github.com/DigitalMagic44519/Sturgeon3000/commits?author=DigitalMagic44519
 #  
-# ---------------------------------------------------------------
+# -------------------------------------------------------------------------------------
  
-# ---------------------------------------------------------------
+# -------------------------------------------------------------------------------------
 # Initialization section from 2021
 #  Mostly from example code
-# ---------------------------------------------------------------
+# -------------------------------------------------------------------------------------
 
 # these are the libraries of code writen by pybricks (API)
 from pybricks.hubs import EV3Brick
@@ -22,7 +25,7 @@ from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
 
-# we got and Ian changed this code from the samples
+# we got this from samples and Ian changed it
 from menu import wait_for_button
 from menu import make_screen
 
@@ -46,7 +49,7 @@ left_line_sensor = ColorSensor(Port.S4)
 # Initialize the drive base. <comment about Sturgeon 3000 being 111mm>
 robot = DriveBase(left_motor, right_motor, wheel_diameter=90, axle_track=111)
 
-# ipk did creating and Initialize variables for speed and acceleration
+# ipk did this creating and Initialize variables for speed and acceleration in 2021
 # (209, 837, 400, 1600)
 straight_speed = 209
 straight_acceleration = 837 #837
@@ -55,7 +58,7 @@ turn_acceleration = 1600
 
 # menu variables by Ian
 run_number = 0
-last_run_number = 5 
+last_run_number = 7 
 
 # ---------------------------------------------------------------
 # These are our reusable functions from 2021
@@ -234,11 +237,6 @@ def hopper():
     #robot.drive(100,50)
     robot.straight(-500)
     
-    
-
-
-
-
 # ---------------------------------------------------------------
 # This is the menu system (changed from the example code by Ian)
 # ---------------------------------------------------------------
@@ -254,22 +252,28 @@ tv_wind()
 while True:
     # Draw screen based on what run we are on
     if run_number == 0:
-        make_screen(ev3,"TV Windmill"," -  -  -  -  -  -  + ","", ""," "," ")
+        make_screen(ev3,"TV Windmill"," +  -  -  -  -  -  - ","", ""," "," ")
 
     elif run_number == 1:
-        make_screen(ev3,"Dino"," -  -  -  -  -  -  + ","", ""," "," ")
+        make_screen(ev3,"Dino Sprint"," -  +  -  -  -  -  - ","", ""," "," ")
 
     elif run_number == 2:
-        make_screen(ev3,"oil rig"," -  -  -  -  -  -  + ","", ""," "," ")
+        make_screen(ev3,"Oil Rig"," -  -  +  -  -  -  - ","", ""," "," ")
 
     elif run_number == 3:
-        make_screen(ev3,"hopper run"," -  -  -  -  -  -  + ","", ""," "," ")
+        make_screen(ev3,"Hopper Run"," -  -  -  +  -  -  - ","", ""," "," ")
 
     elif run_number == 4:
-        make_screen(ev3,"Beep"," -  -  -  -  -  -  + ","", ""," "," ")
+        make_screen(ev3,"Beep"," -  -  -  -  +  -  - ","", ""," "," ")
 
     elif run_number == 5:
+        make_screen(ev3,"Clean Wheels"," -  -  -  -  -  +  - ","", ""," "," ")
+
+    elif run_number == 6:
         make_screen(ev3,"Clean Wheels"," -  -  -  -  -  -  + ","", ""," "," ")
+
+    elif run_number == 7:
+        make_screen(ev3,"Clean Wheels"," -  -  -  -  -  -  - ","", ""," "," ")
 
 
     # Wait for one button to be selected.
@@ -300,9 +304,11 @@ while True:
         else:
             run_number = 0
 
+    # ADD MISSION FCN CALLS HERE
     elif button == Button.CENTER:
         if run_number == 0:
             tv_wind()
+
         elif run_number == 1:
             dino()
 
@@ -318,8 +324,12 @@ while True:
         elif run_number == 5:
             wheel_clean()
 
-                    
+        elif run_number == 6:
+            wheel_clean()
 
+        elif run_number == 7:
+            wheel_clean()
+          
         # Move on to next run screen
         if run_number < last_run_number: 
             run_number = run_number + 1
