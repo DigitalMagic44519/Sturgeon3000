@@ -237,6 +237,28 @@ def hopper():
     #robot.drive(100,50)
     robot.straight(-500)
     
+def power():
+    # powerplant smartgrid power to x (p2x) by Calvin and Koen
+    set_straight_speed(250)
+    robot.straight(-400)
+    robot.turn(-30)
+    robot.straight(-510) #485
+    robot.turn(-65) #80
+
+    #drive to power plant
+    set_straight_speed(200)
+    robot.straight(280) #
+
+    #drive ahead to p2xc
+    set_straight_speed(300)
+    robot.straight(-555)
+    set_straight_speed(100)
+    robot.straight(-30)
+    robot.straight(200)
+
+
+
+
 # ---------------------------------------------------------------
 # This is the menu system (changed from the example code by Ian)
 # ---------------------------------------------------------------
@@ -246,7 +268,8 @@ ev3.speaker.beep(900)
 ev3.speaker.beep(100)
 ev3.speaker.beep(900)
 
-tv_wind()
+power()
+#tv_wind()
 #follow_line(480,75,"left","left")
 
 while True:
