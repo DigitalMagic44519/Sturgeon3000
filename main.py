@@ -58,7 +58,7 @@ turn_acceleration = 1600
 
 # menu variables by Ian
 run_number = 0
-last_run_number = 7 
+last_run_number = 6 
 
 # ---------------------------------------------------------------
 # These are our reusable functions from 2021
@@ -195,6 +195,9 @@ def tv_wind():
     set_straight_speed(500) # pedal to the metal
     robot.straight(-600)
 
+    #lower the toy power dispenser a little
+    am.run_time(-400,250) 
+
 def oil():
     # oil rig mission by Esther and Brayden
     set_straight_speed(300) 
@@ -256,7 +259,28 @@ def power():
     robot.straight(-30)
     robot.straight(200)
 
+def dino():
+    # dino run in 12 parsects 
+    set_straight_speed(1000)
+    robot.straight(2000)
 
+def toy():
+    # Toy factory mission by Ian
+
+    #set the speed
+    set_straight_speed(1000)
+
+    #drive out to dump
+    robot.straight(350)
+
+    #lower the toy power dispenser the rest of the way
+    am.run_time(-400,250) 
+
+    #lift the toy power dispenser again
+    am.run_time(400,300) 
+
+    #come back
+    robot.straight(-600)
 
 
 # ---------------------------------------------------------------
@@ -268,7 +292,9 @@ ev3.speaker.beep(900)
 ev3.speaker.beep(100)
 ev3.speaker.beep(900)
 
-power()
+#am.run_time(-400,250)
+#toy()
+#power()
 #tv_wind()
 #follow_line(480,75,"left","left")
 
@@ -278,25 +304,22 @@ while True:
         make_screen(ev3,"TV Windmill"," +  -  -  -  -  -  - ","", ""," "," ")
 
     elif run_number == 1:
-        make_screen(ev3,"Dino Sprint"," -  +  -  -  -  -  - ","", ""," "," ")
+        make_screen(ev3,"Toy Factory"," -  +  -  -  -  -  - ","", ""," "," ")
 
     elif run_number == 2:
-        make_screen(ev3,"Oil Rig"," -  -  +  -  -  -  - ","", ""," "," ")
+        make_screen(ev3,"Dino Sprint"," -  -  +  -  -  -  - ","", ""," "," ")
 
     elif run_number == 3:
-        make_screen(ev3,"Hopper Run"," -  -  -  +  -  -  - ","", ""," "," ")
+        make_screen(ev3,"Oil Rig"," -  -  -  +  -  -  - ","", ""," "," ")
 
     elif run_number == 4:
-        make_screen(ev3,"Beep"," -  -  -  -  +  -  - ","", ""," "," ")
+        make_screen(ev3,"Hopper Run"," -  -  -  -  +  -  - ","", ""," "," ")
 
     elif run_number == 5:
-        make_screen(ev3,"Clean Wheels"," -  -  -  -  -  +  - ","", ""," "," ")
+        make_screen(ev3,"Power Tower"," -  -  -  -  -  +  - ","", ""," "," ")
 
     elif run_number == 6:
         make_screen(ev3,"Clean Wheels"," -  -  -  -  -  -  + ","", ""," "," ")
-
-    elif run_number == 7:
-        make_screen(ev3,"Clean Wheels"," -  -  -  -  -  -  - ","", ""," "," ")
 
 
     # Wait for one button to be selected.
@@ -333,28 +356,27 @@ while True:
             tv_wind()
 
         elif run_number == 1:
-            dino()
+            toy()
 
         elif run_number == 2:
-            oil()
+            dino()
 
         elif run_number == 3:
-            hopper()
+            oil()
 
         elif run_number == 4:
-            ev3.speaker.beep(200)
+            hopper()
 
         elif run_number == 5:
-            wheel_clean()
+            power()
 
         elif run_number == 6:
-            wheel_clean()
-
-        elif run_number == 7:
             wheel_clean()
           
         # Move on to next run screen
         if run_number < last_run_number: 
             run_number = run_number + 1
         else:
-            run_number = 0  
+            run_number = 0
+
+          
