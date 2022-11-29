@@ -196,7 +196,7 @@ def tv_wind():
     robot.straight(-600)
 
     #lower the toy power dispenser a little
-    am.run_time(-400,250) 
+    #am.run_time(-400,250) 
 
 def oil():
     # oil rig mission by Esther and Brayden
@@ -255,9 +255,16 @@ def power():
     #drive ahead to p2xc
     set_straight_speed(300)
     robot.straight(-555)
+    
+    #slow down as we go in
     set_straight_speed(100)
     robot.straight(-30)
-    robot.straight(200)
+    wait(300)
+
+    #drive to middle
+    robot.straight(20)
+    wait(300)
+    robot.straight(160)
 
 def dino():
     # dino run in 12 parsects 
@@ -277,7 +284,7 @@ def toy():
     am.run_time(-400,250) 
 
     #lift the toy power dispenser again
-    am.run_time(400,300) 
+    am.run_time(400,500) 
 
     #come back
     robot.straight(-600)
