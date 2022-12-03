@@ -213,7 +213,7 @@ def oil():
 
 
     # Harvest energy from solar farm
-    robot.straight(-600)
+    robot.straight(-600) #TODO tends to go crooked, follow line?
 
     #Koen took over, then Lily as she needed to rebuild the reeper
     am.run_time(-2000,600)
@@ -281,10 +281,10 @@ def toy():
     robot.straight(350)
 
     #lower the toy power dispenser the rest of the way
-    am.run_time(-400,250) 
-
+    am.run_time(-400,600) 
+ 
     #lift the toy power dispenser again
-    am.run_time(400,500) 
+    am.run_time( 400,600) 
 
     #come back
     robot.straight(-600)
@@ -298,6 +298,8 @@ ev3.speaker.beep(100)
 ev3.speaker.beep(900)
 ev3.speaker.beep(100)
 ev3.speaker.beep(900)
+
+
 
 #am.run_time(-400,250)
 #toy()
