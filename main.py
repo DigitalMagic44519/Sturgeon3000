@@ -217,8 +217,8 @@ def oil():
 
     #Koen took over, then Lily as she needed to rebuild the reeper
     am.run_time(-2000,600)
-    robot.straight(250)  # Coach winmill 250? 
-    robot.turn(-67)
+    robot.straight(250)  
+    robot.turn(-60) # Ian adjusted this angle during practice with CLEAN wheels
     robot.straight(1000)
  
 def hopper():
@@ -308,22 +308,22 @@ ev3.speaker.beep(900)
 while True:
     # Draw screen based on what run we are on
     if run_number == 0:
-        make_screen(ev3,"TV Windmill"," +  -  -  -  -  -  - ","", ""," "," ")
+        make_screen(ev3,"TV Windmill"," +  -  -  -  -  -  - ","pins", "dino head pin","dispener up"," ")
 
     elif run_number == 1:
-        make_screen(ev3,"Toy Factory"," -  +  -  -  -  -  - ","", ""," "," ")
+        make_screen(ev3,"Toy Factory"," -  +  -  -  -  -  - ","load EUs", ""," "," ")
 
     elif run_number == 2:
-        make_screen(ev3,"Dino Sprint"," -  -  +  -  -  -  - ","", ""," "," ")
+        make_screen(ev3,"Dino Sprint"," -  -  +  -  -  -  - ","", "yell HOT","BLOWIN SNOT"," ")
 
     elif run_number == 3:
-        make_screen(ev3,"Oil Rig"," -  -  -  +  -  -  - ","", ""," "," ")
+        make_screen(ev3,"Oil Rig"," -  -  -  +  -  -  - ","pins!", "lean right"," "," ")
 
     elif run_number == 4:
-        make_screen(ev3,"Hopper Run"," -  -  -  -  +  -  - ","", ""," "," ")
+        make_screen(ev3,"Hopper Run"," -  -  -  -  +  -  - ","aim for black", ""," "," ")
 
     elif run_number == 5:
-        make_screen(ev3,"Power Tower"," -  -  -  -  -  +  - ","", ""," "," ")
+        make_screen(ev3,"Power Tower"," -  -  -  -  -  +  - ","balls first", "rt top corner","forks down","model & EU")
 
     elif run_number == 6:
         make_screen(ev3,"Clean Wheels"," -  -  -  -  -  -  + ","", ""," "," ")
