@@ -216,8 +216,8 @@ def oil():
     robot.straight(-600) #TODO tends to go crooked, follow line?
 
     #Koen took over, then Lily as she needed to rebuild the reeper
-    am.run_time(-2000,600)
-    robot.straight(250)  
+    am.run_time(-2000,700)
+    robot.straight(265)  #IAN ADJUSTED THIS IN PRACTICE WITH CLEAN WHEELS
     robot.turn(-60) # Ian adjusted this angle during practice with CLEAN wheels
     robot.straight(1000)
  
@@ -299,13 +299,7 @@ ev3.speaker.beep(900)
 ev3.speaker.beep(100)
 ev3.speaker.beep(900)
 
-
-
-#am.run_time(-400,250)
-#toy()
-#power()
-#tv_wind()
-#follow_line(480,75,"left","left")
+#am.run_time(-2000,750)
 
 while True:
     # Draw screen based on what run we are on
