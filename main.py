@@ -155,6 +155,7 @@ def follow_line( distance, speed = 80, right_or_left_sensor = "right", side_of_l
 
 def wheel_clean():
     # wheel cleaner by Calvin Hill 11-13-22
+    set_straight_speed(300) 
     robot.straight(2000)
 
 # ---------------------------------------------------------------
