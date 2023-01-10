@@ -33,6 +33,10 @@ RIGHT_SENSOR_WHITE=71
 LEFT_SENSOR_WHITE=74
 RIGHT_SENSOR_BLACK=6
 LEFT_SENSOR_BLACK=7
+BACK_SENSOR_WHITE=99
+BACK_SENSOR_BLACK=8
+FRONT_SENSOR_WHITE=74
+FRONT_SENSOR_BLACK=7
 
 # Initialize the EV3.
 ev3 = EV3Brick()
@@ -43,8 +47,8 @@ left_motor = Motor(Port.C)
 right_motor = Motor(Port.B)
 
 # Initialize the sensors 
-line_sensor = right_line_sensor = ColorSensor(Port.S1)
-left_line_sensor = ColorSensor(Port.S4)
+back_line_sensor = right_line_sensor = ColorSensor(Port.S1) #Moved right sensor to back for state
+front_line_sensor = left_line_sensor = ColorSensor(Port.S4)
 
 # Initialize the drive base. <comment about Sturgeon 3000 being 111mm>
 robot = DriveBase(left_motor, right_motor, wheel_diameter=90, axle_track=111)
@@ -157,6 +161,98 @@ def wheel_clean():
     # wheel cleaner by Calvin Hill 11-13-22
     set_straight_speed(300) 
     robot.straight(2000)
+
+def follow_line_forward( distance, speed = 80, side_of_line = "left", Kp = 0.2, Ki = 0.000, Kd =.001):
+    '''
+    Version 3a of the Digital Magic function to follow a line.  This version by Ian and Brayden on 1-9-2023 to make it a reverse line follower
+    and use 1 sensors again!
+
+    Parameters:
+        distance - mm you want robot to travel
+        speed - speed of robot 
+        side_of_line = which side of black line are you following ("right" or "left") 
+        Kp - proportional gain
+        Ki - integral gain 
+        Kd - derivative gain      
+    '''
+
+    integral = 0
+    derivative = 0
+    last_error = 0
+
+        
+    sensor = front_line_sensor
+    target = (FRONT_SENSOR_WHITE + FRONT_SENSOR_BLACK) / 2
+
+    robot.reset()
+    robot.stop()
+
+    # PID feedback loop
+    while robot.state()[0] < distance:
+        
+        error = sensor.reflection() - target
+        integral = integral + error
+        derivative = error - last_error
+        
+        # this is where the digital magic of a PID line follower happens
+        turn_rate = Kp * error + Ki * integral + Kd * derivative
+        if side_of_line == "left":
+            #print(speed - turn_rate)
+            right_motor.run(speed - turn_rate)
+            left_motor.run(speed + turn_rate)
+        else:
+            right_motor.run(speed + turn_rate)
+            left_motor.run(speed - turn_rate)
+        last_error = error
+        wait(10)
+
+    robot.stop()  #make sure this is outside the loop!!
+
+def follow_line_reverse( distance, speed = -80, side_of_line = "left", Kp = 0.2, Ki = 0.000, Kd =.001):
+    '''
+    Version 3b of the Digital Magic function to follow a line in reverse.  This version by Ian and Brayden on 1-9-2023 to make it a reverse line follower
+    and use 1 sensors again!
+
+    Parameters:
+        distance - mm you want robot to travel This should be negative
+        speed - speed of robot This should be negative
+        side_of_line = which side of black line are you following ("right" or "left") 
+        Kp - proportional gain
+        Ki - integral gain 
+        Kd - derivative gain      
+    '''
+
+    integral = 0
+    derivative = 0
+    last_error = 0
+
+        
+    sensor = back_line_sensor
+    target = (BACK_SENSOR_WHITE + BACK_SENSOR_BLACK) / 2
+
+    robot.reset()
+    robot.stop()
+
+    # PID feedback loop
+    while robot.state()[0] > distance:
+        
+        error = sensor.reflection() - target
+        integral = integral + error
+        derivative = error - last_error
+        
+        # this is where the digital magic of a PID line follower happens
+        turn_rate = Kp * error + Ki * integral + Kd * derivative
+        if side_of_line == "left":
+            #print(speed - turn_rate)
+            right_motor.run(speed - turn_rate)
+            left_motor.run(speed + turn_rate)
+        else:
+            right_motor.run(speed + turn_rate)
+            left_motor.run(speed - turn_rate)
+        last_error = error
+        wait(10)
+
+    robot.stop()  #make sure this is outside the loop!!
 
 # ---------------------------------------------------------------
 # Our 2022 Super Powered mission functions start here
@@ -291,15 +387,15 @@ def toy():
     robot.straight(-600)
 
 
-# ---------------------------------------------------------------
-# This is the menu system (changed from the example code by Ian)
-# ---------------------------------------------------------------
+# ----------------------------------------------------------------------
+# This is the menu system (changed from the example code by Ian in 2021)
+# ----------------------------------------------------------------------
 
 ev3.speaker.beep(100)
 ev3.speaker.beep(900)
 ev3.speaker.beep(100)
 ev3.speaker.beep(900)
-
+follow_line_forward( distance = 100, speed = 80, side_of_line = "left", Kp = 0.2, Ki = 0.000, Kd =.001)
 #am.run_time(-2000,750)
 
 while True:
