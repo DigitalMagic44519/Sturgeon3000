@@ -16,7 +16,7 @@
 # Initialization section from 2021
 #  Mostly from example code
 # -------------------------------------------------------------------------------------
-
+ 
 # these are the libraries of code writen by pybricks (API)
 from pybricks.hubs import EV3Brick
 from pybricks.parameters import Port, Stop, Direction, Button, Color 
@@ -33,6 +33,7 @@ RIGHT_SENSOR_WHITE=71
 LEFT_SENSOR_WHITE=74
 RIGHT_SENSOR_BLACK=6
 LEFT_SENSOR_BLACK=7
+
 BACK_SENSOR_WHITE=99
 BACK_SENSOR_BLACK=8
 FRONT_SENSOR_WHITE=74
@@ -41,7 +42,7 @@ FRONT_SENSOR_BLACK=7
 # Initialize the EV3.
 ev3 = EV3Brick()
 
-# Initialize the motors.
+# Initialize the 111mm,motors.
 am = Motor(Port.A)
 left_motor = Motor(Port.C)
 right_motor = Motor(Port.B)
@@ -50,13 +51,13 @@ right_motor = Motor(Port.B)
 back_line_sensor = right_line_sensor = ColorSensor(Port.S1) #Moved right sensor to back for state
 front_line_sensor = left_line_sensor = ColorSensor(Port.S4)
 
-# Initialize the drive base. <comment about Sturgeon 3000 being 111mm>
+# Initialize the drive base. 2022-2023 Sturgeon 3000 is a wider 111mm for stability 
 robot = DriveBase(left_motor, right_motor, wheel_diameter=90, axle_track=111)
 
 # ipk did this creating and Initialize variables for speed and acceleration in 2021
 # (209, 837, 400, 1600)
 straight_speed = 209
-straight_acceleration = 837 #837
+straight_acceleration = 837 #837am.run_time(-200,2000)
 turn_rate = 50 #400 
 turn_acceleration = 1600
 
@@ -154,8 +155,11 @@ def follow_line( distance, speed = 80, right_or_left_sensor = "right", side_of_l
     robot.stop()  #make sure this is outside the loop!!
 
 # ---------------------------------------------------------------
-# These are our new reusable functions for 2022
+# These are our new ram.run_time(-200,2000)eusable functions for 2022
 # ---------------------------------------------------------------
+
+def reep():
+    am.run_time(-200,2000)
 
 def wheel_clean():
     # wheel cleaner by Calvin Hill 11-13-22
@@ -317,7 +321,37 @@ def oil():
     robot.straight(265)  #IAN ADJUSTED THIS IN PRACTICE WITH CLEAN WHEELS
     robot.turn(-60) # Ian adjusted this angle during practice with CLEAN wheels
     robot.straight(1000)
- 
+
+def state_oil():
+
+    #Improved Oil mission for state championship by Brayden
+
+    # Drive out an line up with oil rig
+    set_straight_speed(300) 
+    robot.straight(-750)
+    robot.turn(53)
+    robot.straight(250)
+
+    # Pump the well 3 times
+    robot.straight(-100)
+    robot.straight(120)
+    robot.straight(-100)
+    robot.straight(120)
+
+    #  drive back energy from solar farm
+    follow_line_reverse( distance = -570, speed = -200, side_of_line = "left", Kp = 0.2, Ki = 0.000, Kd =.001)
+
+    # reep the energy
+    reep()  #  
+    robot.straight(290)
+
+    # come on home triggering dam
+    robot.turn(-50) 
+    robot.straight(250)
+    robot.turn(5)
+    robot.straight(750)
+    am.run_time(200,2000)
+
 def hopper():
     #hopper fill run by Lily Hill
     #set the speed
@@ -395,8 +429,8 @@ ev3.speaker.beep(100)
 ev3.speaker.beep(900)
 ev3.speaker.beep(100)
 ev3.speaker.beep(900)
-follow_line_forward( distance = 100, speed = 80, side_of_line = "left", Kp = 0.2, Ki = 0.000, Kd =.001)
-#am.run_time(-2000,750)
+
+
 
 while True:
     # Draw screen based on what run we are on
@@ -462,7 +496,7 @@ while True:
             dino()
 
         elif run_number == 3:
-            oil()
+            state_oil()
 
         elif run_number == 4:
             hopper()
